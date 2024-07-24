@@ -1,0 +1,7 @@
+{
+	"name": "GameModules",
+	"tree": {
+		"$path": "src",
+		"$ignoreUnknownInstances": true
+	}
+}

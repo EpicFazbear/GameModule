@@ -1,0 +1,11 @@
+# Project model files
+/*.rbxm
+/*.rbxmx
+
+# Project place file (template)
+/*.rbxl
+/*.rbxlx
+
+# Roblox Studio lock files (template)
+/*.rbxl.lock
+/*.rbxlx.lock
