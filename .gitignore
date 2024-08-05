@@ -9,3 +9,7 @@
 # Roblox Studio lock files (template)
 /*.rbxl.lock
 /*.rbxlx.lock
+
+# Miscellaneous files
+*.exe
+.vscode/*
