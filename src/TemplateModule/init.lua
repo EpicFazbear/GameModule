@@ -1,7 +1,7 @@
 -- Game Module Template --
 
 return function(CustomParameters)
-	local Module = require(); -- HubModule (This needs to be filled in!)
+	local Module = require(4918828123); -- HubModule (free to take btw :P)
 	Module:LoadGame(script:GetChildren(), require(script.Settings), CustomParameters);
 end; -- Usage: require(ModuleID)() -- (ModuleID is the ID of your own module that you uploaded)
 
@@ -17,7 +17,7 @@ end; -- Usage: require(ModuleID)() -- (ModuleID is the ID of your own module tha
 
 	All you need to do is run this require function:
 
-		require(HUB_ID):Convert()
+		require(4918828123):Convert()
 
 	Do not worry, it is just the same module used at the top to load the whole game, but instead it just saves everything into a module.
 

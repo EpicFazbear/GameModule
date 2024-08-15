@@ -1,28 +1,32 @@
 --[[
 	If your GameModule uses different property settings (e.g. the lighting is different or lower gravity),
-		then it is recommended to set those properties here. (You can also just set them in a script in Workspace or ServerScriptService)
+	then it's recommended to set those properties here. (You can also just set them in a script in Workspace or ServerScriptService)
+
 	If you remove an entire service's properties here, then they won't be changed at all when the GameModule gets loaded in.
-	You can also remove certain properties, and they'll not be changed when the GameModule is loaded in.
-	-- EpicFazbear
+	You can also remove certain properties, and they'll stay the same when the GameModule is loaded in.
+	I apologize in advance for the lack of documentation (laziness xd), but all of this should at least be somewhat self-explainatory anyways.
 --]]
 
 
 local WhitelistedServices = { -- Extra Whitelist Parameters --
-
+	
 }; --[[
-	If you don't want any services in particular to be cleared when loading in the GameModule, put their names here. (e.g. "Lighting", "ServerStorage", "Players")
-	Players' data will still be kept, but their properties will change depending on the settings you make below.
+	If you don't want any services in particular to be cleared when loading in the GameModule, put their names here.
+	e.g. "Lighting", "ServerStorage", "Players" (Players' data will be kept, but their properties will still change depending on the settings you make below)
 --]]
 
 
 local ServiceProperties = {
 	["Workspace"] = {
 		Gravity = 196.2
+--		Workspace gravity (self-explainatory)
 		,PrimaryPart = nil
 	};
 	["Players"] = {
 		RespawnTime = 5
+--		Player respawn time (self-explainatory)
 		,CharacterAutoLoads = true
+--		Whether or not players will respawn at all (self-explainatory)
 	};
 	["Lighting"] = {
 		Ambient = Color3.fromRGB(128,128,128)
@@ -34,10 +38,10 @@ local ServiceProperties = {
 		,GlobalShadows = true
 --		,Outlines = false -- Outlines is deprecated
 		,OutdoorAmbient = Color3.fromRGB(128,128,128)
---		,ShadowSoftness = 0.5 -- This property only works in games with ShadowMap/Future Technology
+--		,ShadowSoftness = 0.5 -- This property only works in with the ShadowMap/Future Technology
 		,ClockTime = 14
 		,GeographicLatitude = 41.733
---		,TimeOfDay = "14:00:00" -- Same as ClockTime, but in a different format
+--		,TimeOfDay = "14:00:00" -- Same as ClockTime, but different format
 		,ExposureCompensation = 0
 		,FogColor = Color3.fromRGB(191,191,191)
 		,FogEnd = 100000
@@ -63,7 +67,7 @@ local ServiceProperties = {
 		,CharacterMaxSlopeAngle = 89
 		,CharacterWalkSpeed = 16
 		,LoadCharacterAppearance = true
-		,UserEmotesEnabled = true
+		,UserEmotesEnabled = false -- No Emotes ;)
 		,DevComputerMovementMode = Enum.DevComputerMovementMode.UserChoice
 		,DevTouchMovementMode = Enum.DevTouchMovementMode.UserChoice
 		,EnableMouseLockOption = true
@@ -123,7 +127,8 @@ local TerrainProperties = {
 	};
 --[[
 	["TerrainFunctions"] = function()
---		If you want to directly run terrain functions (such as Terrain:FillRegion or loading saved TerrainRegions), you can uncomment this block and put them here.
+--		If you want to directly run terrain functions (such as Terrain:FillRegion or loading saved TerrainRegions),
+--		you can uncomment this block and put them here
 	end;
 --]]
 };
