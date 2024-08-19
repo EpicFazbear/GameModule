@@ -1,6 +1,6 @@
--- MainModule Hub --
+-- HubModule --
 -- Check the ChangeLog module for information about past updates.
--- Check the LICENSE module for more information about this MainModule's licensing. (TLDR included)
+-- Check the LICENSE module for more information about this HubModule's licensing.
 
 local Module = {};
 local Parser = require(script.Parameters)
@@ -41,7 +41,7 @@ end;
 
 
 function Module:LoadPack(ModuleId, Destination, CustomParameters)
-	local Parameters = Parser(CustomParameters)
+	--local Parameters = Parser(CustomParameters)
 	local Module = require(ModuleId)
 	assert(typeof(Module == "table"), "Given module doesn't return a table!")
 	if Destination then
@@ -108,7 +108,6 @@ end;
 function Module:Help()
 	warn(
 		"~~~ Documentation ~~~"..
-		"\nModule = require(4918828123)"..
 		"\n"..
 		"-- Module Functions --"..
 		"\n\nModule.Help() - Prints this message out"..
@@ -118,10 +117,9 @@ function Module:Help()
 		"\nModule:Backup(CustomParameters) - If no current backup already exists, creates a snapshot of everything in the game and saves it into a backup for the server"..
 		"\nModule:Restore(CustomParameters) - If a current backup exists for the server, clears everything out and loads in everything from the snapshot backup"..
 		"\nModule:LoadOnly(Folders, CustomParameters) - Loads only the GameModule without clearing out anything, nor setting any service properties"..
-		"\nModule:Convert(CustomParameters) - For use in Roblox Studio's command bar; Converts a place into a GameModule, and inserts the module into TestService"..
+		"\nModule:Convert(CustomParameters) - For use in Roblox Studio's Command Bar; Converts a place into a GameModule, and inserts the module into TestService"..
 		"\n"..
 		"\n-- Custom Parameters --"..
-		"\n(Not actually implemented yet!)"..
 		"\nNoRespawn (boolean) - Will not respawn players if TRUE"..
 		"\nReverseWhitelist (boolean) - If TRUE, Services listed in WhitelistedServices and ServiceList will only be processed"..
 		"\nServiceList (table) - A list of Services to ignore or to specify in the Whitelist"
@@ -132,7 +130,7 @@ end;
 -- Module.Debug = script;
 
 return setmetatable(Module, {
-	__index = function(table, call)
+	__index = function()
 		Module:Help() -- Self-help
 		error("Invalid call to module.")
 	end;
@@ -143,13 +141,4 @@ return setmetatable(Module, {
 });
 
 
--- Development and remaster was funded by the Church of Ringo
--- and by Ellis der Foxxen Co.
-
---[[
-	You found my module! Congrats!
-
-	I'll put some more stuff here later when I feel motivated.. :P
-	-- EpicFazbear / Fazsune (My new alias)
-	-- (c) 2022
--]]
+-- Copyright (c) 2019-2024 EpicFazbear / Fazsune. --

@@ -45,7 +45,7 @@ local ServiceProperties = {
 		,CharacterMaxSlopeAngle = 89
 		,CharacterWalkSpeed = 16
 		,LoadCharacterAppearance = true
-		,UserEmotesEnabled = false -- No Emotes ;)
+		,UserEmotesEnabled = true
 		,DevComputerMovementMode = Enum.DevComputerMovementMode.UserChoice
 		,DevTouchMovementMode = Enum.DevTouchMovementMode.UserChoice
 		,EnableMouseLockOption = true
@@ -104,4 +104,4 @@ return {
 	WhitelistedServices = WhitelistedServices;
 };
 
--- EpicFazbear (c) 2021 ROFL --
+-- EpicFazbear (c) 2021 --

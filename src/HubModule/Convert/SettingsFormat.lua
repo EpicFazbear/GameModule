@@ -1,4 +1,4 @@
--- This module formats the Settings module and packs it into a StringValue for the user to retrieve. --
+-- This module formats the Settings module and inputs all of the game's service properties for the user. --
 
 local tostring = function(input, decimal)
 	if typeof(input) ~= "number" then
@@ -20,22 +20,31 @@ end
 
 
 return function()
-	return "local WhitelistedServices = { -- Extra Whitelist Parameters --\
-	\
-};\
+	return "--[[\
+	If your GameModule uses different property settings (e.g. the lighting is different or lower gravity), then it is recommended to set those properties here.\
+	(You can also just set them in a script in Workspace or ServerScriptService)\
+	If you remove an entire service's properties here, then they won't be changed at all when the GameModule gets loaded in.\
+	You can also remove certain properties, and they'll not be changed when the GameModule is loaded in.\
+	-- EpicFazbear\
+--]]\
+\
+\
+local WhitelistedServices = { -- Extra Whitelist Parameters --\
+\
+}; --[[\
+	If you don't want any services in particular to be cleared when loading in the GameModule, put their names here. (e.g. \"Lighting\", \"ServerStorage\", \"Players\")\
+	Players' data will still be kept, but their properties will change depending on the settings you make below.\
+--]]\
 \
 \
 local ServiceProperties = {\
 	[\"Workspace\"] = {\
 		Gravity = " .. tostring(game:GetService("Workspace").Gravity) .. "\
---		Workspace gravity (self-explainatory)\
 		,PrimaryPart = nil\
 	};\
 	[\"Players\"] = {\
 		RespawnTime = " .. tostring(game:GetService("Players").RespawnTime) .. "\
---		Player respawn time (self-explainatory)\
 		,CharacterAutoLoads = " .. tostring(game:GetService("Players").CharacterAutoLoads) .. "\
---		Whether or not players will respawn at all (self-explainatory)\
 	};\
 	[\"Lighting\"] = {\
 		Ambient = " .. GetColorString(game:GetService("Lighting").Ambient) .. "\
@@ -47,9 +56,10 @@ local ServiceProperties = {\
 		,GlobalShadows = " .. tostring(game:GetService("Lighting").GlobalShadows) .. "\
 --		,Outlines = " .. tostring(game:GetService("Lighting").Outlines) .. " -- Outlines is deprecated\
 		,OutdoorAmbient = " .. GetColorString(game:GetService("Lighting").OutdoorAmbient) .. "\
+--		,ShadowSoftness = " .. tostring(game:GetService("Lighting").ShadowSoftness) .. " -- This property only works in games with ShadowMap/Future Technology\
 		,ClockTime = " .. tostring(game:GetService("Lighting").ClockTime) .. "\
 		,GeographicLatitude = " .. tostring(game:GetService("Lighting").GeographicLatitude) .. "\
---		,TimeOfDay = " .. tostring(game:GetService("Lighting").TimeOfDay) .. " -- Same as ClockTime, but different format\
+--		,TimeOfDay = " .. tostring(game:GetService("Lighting").TimeOfDay) .. " -- Same as ClockTime, but in a different format\
 		,ExposureCompensation = " .. tostring(game:GetService("Lighting").ExposureCompensation) .. "\
 		,FogColor = " .. GetColorString(game:GetService("Lighting").FogColor) .. "\
 		,FogEnd = " .. tostring(game:GetService("Lighting").FogEnd) .. "\
@@ -75,7 +85,7 @@ local ServiceProperties = {\
 		,CharacterMaxSlopeAngle = " .. tostring(game:GetService("StarterPlayer").CharacterMaxSlopeAngle) .. "\
 		,CharacterWalkSpeed = " .. tostring(game:GetService("StarterPlayer").CharacterWalkSpeed) .. "\
 		,LoadCharacterAppearance = " .. tostring(game:GetService("StarterPlayer").LoadCharacterAppearance) .. "\
-		,UserEmotesEnabled = false -- No Emotes ;)\
+		,UserEmotesEnabled = " .. tostring(game:GetService("StarterPlayer").UserEmotesEnabled) .. "\
 		,DevComputerMovementMode = " .. tostring(game:GetService("StarterPlayer").DevComputerMovementMode) .. "\
 		,DevTouchMovementMode = " .. tostring(game:GetService("StarterPlayer").DevTouchMovementMode) .. "\
 		,EnableMouseLockOption = " .. tostring(game:GetService("StarterPlayer").EnableMouseLockOption) .. "\
@@ -96,7 +106,7 @@ local PlayerProperties = {\
 	ReplicationFocus = nil\
 --	Sets the part to focus network replication around\
 	,RespawnLocation = nil\
---	Sets specific spawnlocation part for all players to spawn at\
+--	Sets a specific RespawnLocation part for all players to spawn at\
 };\
 \
 \
@@ -110,7 +120,7 @@ local TerrainProperties = {\
 		,WaterWaveSize = " .. tostring(game:GetService("Workspace").Terrain.WaterWaveSize) .. "\
 		,WaterWaveSpeed = " .. tostring(game:GetService("Workspace").Terrain.WaterWaveSpeed) .. "\
 	};\
-	[\"ColorProperties\"] = { -- Colors of the terrain (if your GameModule requires, if not then just leave it as default)\
+	[\"ColorProperties\"] = { -- Colors of the terrain (if your GameModule requires it; otherwise just leave as default)\
 		Asphalt = " .. GetTerrainColorString("Asphalt") .. "\
 		,Basalt = " .. GetTerrainColorString("Basalt") .. "\
 		,Brick = " .. GetTerrainColorString("Brick") .. "\
@@ -135,8 +145,7 @@ local TerrainProperties = {\
 	};\
 --[[\
 	[\"TerrainFunctions\"] = function()\
---		If you want to directly run terrain functions (such as Terrain:FillRegion or loading saved TerrainRegions),\
---		you can uncomment this block and put them here\
+--		If you want to directly run terrain functions (such as Terrain:FillRegion or loading saved TerrainRegions), you can uncomment this block and put them here.\
 	end;\
 --]]\
 };\

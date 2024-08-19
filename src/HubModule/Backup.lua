@@ -1,6 +1,8 @@
 -- Takes a snapshot backup of the entire game. --
 
-local Settings = require(script.Settings)
+local Settings = script.Parent.Shared.Settings:Clone()
+Settings.Parent = script
+Settings = require(script.Settings)
 
 local function RunRegularCheck(instance)
 	local Children = instance:GetChildren()
@@ -8,7 +10,7 @@ local function RunRegularCheck(instance)
 		local Folder = Instance.new("Folder")
 		Folder.Name = instance.Name
 		for _, item in next, Children do
-			if item.Archivable then
+			if item.Archivable and item.Name ~= "\0" then
 				item:Clone().Parent = Folder
 			end
 		end
@@ -18,17 +20,15 @@ end
 
 local function RunWhitelistedCheck(instance, whitelist)
 	local Children = instance:GetChildren()
-	local Folder = Instance.new("Folder")
-	Folder.Name = instance.Name
-	for _, item in next, instance:GetChildren() do
-		if not table.find(whitelist, item.Name) and item.Archivable then
-			item:Clone().Parent = Folder
+	if #Children ~= 0 then
+		local Folder = Instance.new("Folder")
+		Folder.Name = instance.Name
+		for _, item in next, Children do
+			if not table.find(whitelist, item.Name) and item.Archivable and item.Name ~= "\0" then
+				item:Clone().Parent = Folder
+			end
 		end
-	end
-	if #Folder:GetChildren() ~= 0 then
 		Folder.Parent = script
-	else
-		Folder:Destroy()
 	end
 end
 
@@ -37,7 +37,7 @@ local Services = {
 		local Children = service:GetChildren()
 		local Folder = Instance.new("Folder")
 		Folder.Name = "Workspace"
-		for _, item in next, service:GetChildren() do
+		for _, item in next, Children do
 			if item:IsA("Terrain") then
 			--[[
 				local Folder2 = Instance.new("Folder")
@@ -67,7 +67,7 @@ local Services = {
 		local Children = service:GetChildren()
 		local Folder = Instance.new("Folder")
 		Folder.Name = "Players"
-		for _, item in next, service:GetChildren() do
+		for _, item in next, Children do
 			if not item:IsA("Player") and item.Archivable then
 				item:Clone().Parent = Folder
 			end
@@ -85,15 +85,13 @@ local Services = {
 		RunRegularCheck(service)
 	end;
 	["ReplicatedStorage"] = function(service)
-		RunWhitelistedCheck(service, {
-			"DefaultChatSystemChatEvents", -- Important CoreScript
-			"\0"
+		RunWhitelistedCheck(service, { -- Ignore chat script
+			"DefaultChatSystemChatEvents"
 		})
 	end;
 	["ServerScriptService"] = function(service)
-		RunWhitelistedCheck(service, {
-			"ChatServiceRunner", -- Important CoreScript
-			"\0"
+		RunWhitelistedCheck(service, { -- Ignore chat script
+			"ChatServiceRunner"
 		})
 	end;
 	["ServerStorage"] = function(service)
@@ -106,19 +104,17 @@ local Services = {
 		RunRegularCheck(service)
 	end;
 	["StarterPlayer"] = function(service)
-		RunWhitelistedCheck(service, {
+		RunWhitelistedCheck(service, { -- Ignore core folders
 			"StarterCharacterScripts",
-			"StarterPlayerScripts",
-			"\0"
+			"StarterPlayerScripts"
 		})
 		RunRegularCheck(service.StarterCharacterScripts)
-		RunWhitelistedCheck(service.StarterPlayerScripts, { -- Important CoreScripts
+		RunWhitelistedCheck(service.StarterPlayerScripts, { -- Ignore chat scripts
 			"BubbleChat",
 			"ChatScript",
 			"PlayerScriptsLoader",
 			"RbxCharacterSounds",
-			"PlayerModule",
-			"\0"
+			"PlayerModule"
 		})
 	end;
 	["Teams"] = function(service)
@@ -128,14 +124,13 @@ local Services = {
 		RunRegularCheck(service)
 	end;
 	["Chat"] = function(service)
-		RunWhitelistedCheck(service, { -- Important CoreScripts
+		RunWhitelistedCheck(service, { -- Ignore chat scripts
 			"ChatModules",
 			"ClientChatModules",
 			"ChatLocalization",
 			"ChatServiceRunner",
 			"BubbleChat",
-			"ChatScript",
-			"\0",
+			"ChatScript"
 		})
 	end;
 	["LocalizationService"] = function(service)
@@ -177,7 +172,7 @@ return function(Parameters)
 	end
 	Settings.TerrainProperties.WaterProperties = WaterProperties
 	if game:GetService("Workspace"):FindFirstChildOfClass("Terrain"):CountCells() ~= 0 then
-		local Module = require(script.Parent.TerrainModule)
+		local Module = require(script.Parent.Shared.TerrainSaveLoad)
 		local Region = Module:Save(false)
 		Region.Parent = script
 	end

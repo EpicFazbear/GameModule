@@ -3,21 +3,6 @@
 -- January 17, 2015
 
 
---[[
-	How to use:
-	- Keep this under ServerScriptService or ServerStorage
-	- Use from a Script on the server (not LocalScript)
-
-	Example:
-		local terrainSaveLoad = require(game.ServerScriptService.TerrainSaveLoad)
-		-- Save terrain:
-		local savedTerrain = terrainSaveLoad:Save(includeWaterProperties)
-			-- Saves water properties too if "includeWaterProperties" is 'true'
-		-- Load terrain:
-		terrainSaveLoad:Load(savedTerrain)
---]]
-
-
 local TerrainSaveLoad = {
 	Version = "1.0.3";
 };

@@ -13,7 +13,7 @@ Module:ClearAll(CustomParameters) -- Clears all services and resets all properti
 Module:Backup(CustomParameters) -- If no current backup already exists, creates a snapshot of everything in the game and saves it into a backup for the server
 Module:Restore(CustomParameters) -- If a current backup exists for the server, clears everything out and loads in everything from the snapshot backup
 Module:LoadOnly(Folders, CustomParameters) -- Loads only the GameModule without clearing out anything, nor setting any service properties
-Module:Convert(CustomParameters) -- For use in Roblox Studio's command bar; Converts a place into a GameModule, and inserts the module into TestService
+Module:Convert(CustomParameters) -- For use in Roblox Studio's Command Bar; Converts a place into a GameModule, and inserts the module into TestService
 -- Custom Parameters --
 NoRespawn (boolean) - Will not respawn players if TRUE
 ReverseWhitelist (boolean) - If TRUE, Services listed in WhitelistedServices and ServiceList will only be processed

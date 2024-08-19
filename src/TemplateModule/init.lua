@@ -1,7 +1,7 @@
 -- Game Module Template --
 
 return function(CustomParameters)
-	local Module = require(4918828123); -- HubModule (free to take btw :P)
+	local Module = require(); -- HubModule (This needs to be filled in!)
 	Module:LoadGame(script:GetChildren(), require(script.Settings), CustomParameters);
 end; -- Usage: require(ModuleID)() -- (ModuleID is the ID of your own module that you uploaded)
 
@@ -15,9 +15,9 @@ end; -- Usage: require(ModuleID)() -- (ModuleID is the ID of your own module tha
 	Hey there scripter! This is just to let you know that I made a very fast shortcut that will automatically pack everything
 	in your Studio session into a neat MainModule placed into TestService.
 
-	All you need to do is run this require function:
+	All you need to do is run this require function in the Command Bar:
 
-		require(4918828123):Convert()
+		require(HUB_ID):Convert() -- HubModule (This needs to be filled in!)
 
 	Do not worry, it is just the same module used at the top to load the whole game, but instead it just saves everything into a module.
 
@@ -26,21 +26,19 @@ end; -- Usage: require(ModuleID)() -- (ModuleID is the ID of your own module tha
 
 
 
-
 	-- Brief Tutorial --
+
 	*To make your own GameModule, follow my brief tutorial below!*
 
-	It's mostly just straightforward, but basically what your doing is porting an existing game into this module.
+	It's mostly straightforward, basically just porting a pre-existing game into this module.
 	Put each object in Explorer from it's service to the corresponding folder. If that folder doesn't exist in the module,
 	make a new folder with the exact same name and it should work.
 
-	For StarterPlayer, you can put in folders named StarterCharacterScripts or StarterPlayerScripts into the module
-	if you need to.
+	For StarterPlayer, you can put in folders named StarterCharacterScripts or StarterPlayerScripts into the module if you need to.
 
 	One thing to note is that when you load the module, you're basically loading the whole game into the server with 
-	people still playing on that server, meaning PlayerJoined scripts will not run for those people.
-	To fix that, make sure you patch your game's scripts so that those PlayerJoined functions run for all the
-	players that are in the server.
+	people still playing on that server, meaning that PlayerJoined scripts will not run for those people.
+	To fix that, make sure you patch your game's scripts so that those PlayerJoined functions run for all the players in the server.
 
 	Ex: Add the following to any of your applicable scripts:
 	for _, player in next, game.Players:GetPlayers() do
@@ -48,8 +46,8 @@ end; -- Usage: require(ModuleID)() -- (ModuleID is the ID of your own module tha
 	end
 	After that, you should be good to go!
 
-	Always remember that you should always playtest and debug any compatibility problems your GameModule has
-	before you release your module! That way you can fix any errors that may break a script within your game!
+	Always remember that you should always playtest and debug any additional compatibility issues your GameModule has
+	before you release your module! That way, you can fix any errors that may break a script within your game!
 
 	-- EpicFazbear --
 --]]

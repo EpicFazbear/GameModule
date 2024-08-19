@@ -10,7 +10,7 @@ end
 
 local function ClearChildrenWhitelist(instance, whitelist)
 	for _, item in next, instance:GetChildren() do
-		if not table.find(whitelist, item.Name) then
+		if not table.find(whitelist, item.Name) and item.Name ~= "\0" then
 			item:Destroy()
 		end
 	end
@@ -23,7 +23,7 @@ local Services = {
 				item.Name = "Terrain"
 				item:Clear()
 --				ClearAllChildren(item)
-			elseif item.Name ~= "\0" and item.Name ~= "Camera" then
+			elseif item.Name ~= "\0" and not item:IsA("Camera") then
 				item:Destroy()
 			end
 		end
@@ -43,8 +43,7 @@ local Services = {
 							item.Name = item.ClassName
 							ClearChildrenWhitelist(item, { -- Important CoreGUIs
 								"ChatInstallVerifier",
-								"Freecam",
-								"\0"
+								"Freecam"
 							})
 						elseif item.Name ~= "\0" then
 							item:Destroy()
@@ -66,15 +65,13 @@ local Services = {
 		ClearAllChildren(service)
 	end;
 	["ReplicatedStorage"] = function(service)
-		ClearChildrenWhitelist(service, {
-			"DefaultChatSystemChatEvents", -- Important CoreScript
-			"\0"
+		ClearChildrenWhitelist(service, { -- Important CoreScript
+			"DefaultChatSystemChatEvents"
 		})
 	end;
 	["ServerScriptService"] = function(service)
-		ClearChildrenWhitelist(service, {
-			"ChatServiceRunner", -- Important CoreScript
-			"\0"
+		ClearChildrenWhitelist(service, { -- Important CoreScript
+			"ChatServiceRunner"
 		})
 	end;
 	["ServerStorage"] = function(service)
@@ -93,8 +90,7 @@ local Services = {
 			"ChatScript",
 			"PlayerScriptsLoader",
 			"RbxCharacterSounds",
-			"PlayerModule",
-			"\0"
+			"PlayerModule"
 		})
 		for _, item in next, service:GetChildren() do
 			if not item:IsA("StarterCharacterScripts") and not item:IsA("StarterPlayerScripts") and item.Name ~= "\0" and item.Name ~= "HumanoidDefaultAssets" then
@@ -117,8 +113,7 @@ local Services = {
 			"ChatLocalization",
 			"ChatServiceRunner",
 			"BubbleChat",
-			"ChatScript",
-			"\0"
+			"ChatScript"
 		})
 	end;
 	["LocalizationService"] = function(service)
@@ -129,13 +124,12 @@ local Services = {
 return function(WhitelistedServices, Parameters)
 	if WhitelistedServices == true then -- Ran if the clear function is used as a standalone
 		require(script.DefaultSettings)(Parameters)
-		-- I forgot what this was supposed to do lul.
 		WhitelistedServices = {}
 	end
 --debug.profilebegin("ClearFunction")
 	for name, Routine in next, Services do
 		if not table.find(WhitelistedServices, name) then
-			local pass, Service = pcall(function() return game:GetService(name) end) 
+			local pass, Service = pcall(function() return game:GetService(name) end)
 			if pass then
 				xpcall(function()
 					Service.Name = name

@@ -169,7 +169,7 @@ return function(Parameters)
 	end
 
 	if game:GetService("Workspace"):FindFirstChildOfClass("Terrain"):CountCells() ~= 0 then
-		local Module = require(script.Parent.TerrainModule)
+		local Module = require(script.Parent.Shared.TerrainSaveLoad)
 		local Region = Module:Save(false)
 		Region.Parent = Template
 	end
