@@ -1,9 +1,12 @@
-<h1 style="margin-bottom: 0px">GameModule</h1><h4 style="margin-top: 0px; margin-bottom: 20px">(Rojo Implementation)</h2>
+# GameModule
+### (Rojo Implementation)
+
 This project has not been maintained since 2022, and has only been ported to Rojo for archival purposes.
 
 This project builds a .rbxm file of a folder containing two modules: the HubModule and TemplateModule. If you intend on uploading either module, make sure to rename them to "MainModule" before continuing.
 
 Here are some documentation I wrote for functions that can be run directly on the HubModule:
+
 ```
 -- Module Functions --
 Module:Help() -- Prints this message out
@@ -19,4 +22,16 @@ NoRespawn (boolean) - Will not respawn players if TRUE
 ReverseWhitelist (boolean) - If TRUE, Services listed in WhitelistedServices and ServiceList will only be processed
 ServiceList (table) - A list of Services to ignore or to specify in the Whitelist
 ```
+
 As for the TemplateModule, it only returns a single function (with optional CustomParameters) that will load the game saved inside the module.
+
+
+# Example Modules
+These modules *will* replace everything in a running server or Studio instance. Only test them in a controlled environment.
+
+These are also connected to the [original upload of the HubModule](https://www.roblox.com/library/4918828123/Main-Module-Hub), so please note that any new changes made from this GitHub repository won't be reflected in the examples.
+
+- `require(5235974706)() -- Bowling Alley (by blXhd)`
+- `require(6337523729)() -- Egg Hunt 2013 (by ROBLOX Staff, CloneTrooper1019)`
+- `require(4472855895)() -- Frost Nova (by Django136)`
+- `require(7178502542)() -- Nintendo Minigames (by BMJ44)`
